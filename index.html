@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MARS YAŞAYIŞ AI</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 80% 10%, #451b10 0%, transparent 30%),
+        radial-gradient(circle at 10% 80%, #171b35 0%, transparent 35%),
+        #07080d;
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    padding:18px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(7,8,13,.85);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.logo{
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.logo span{
+    color:#ff6538;
+}
+
+.header-badge{
+    border:1px solid rgba(255,255,255,.15);
+    padding:8px 13px;
+    border-radius:30px;
+    font-size:12px;
+    color:#bbb;
+}
+
+.container{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+    padding:50px 0 80px;
+}
+
+.hero{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:40px;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.hero-small{
+    color:#ff7040;
+    font-weight:bold;
+    letter-spacing:3px;
+    font-size:12px;
+    margin-bottom:15px;
+}
+
+h1{
+    font-size:clamp(42px,6vw,78px);
+    line-height:.95;
+    letter-spacing:-4px;
+    margin-bottom:22px;
+}
+
+h1 span{
+    color:#ff6538;
+}
+
+.hero p{
+    color:#aeb2bd;
+    line-height:1.7;
+    font-size:17px;
+    max-width:700px;
+}
+
+/* MARS */
+
+.mars{
+    width:300px;
+    height:300px;
+    margin:auto;
+    border-radius:50%;
+    position:relative;
+
+    background:
+    radial-gradient(circle at 32% 25%,
+    #ffbd7b 0%,
+    #d55a32 25%,
+    #8b2d1e 55%,
+    #32120d 80%,
+    #100807 100%);
+
+    box-shadow:
+    0 0 80px rgba(255,82,35,.25),
+    inset -35px -35px 60px #000;
+}
+
+.mars:before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:
+    radial-gradient(circle at 60% 60%,transparent 0 8%,rgba(0,0,0,.12) 9% 12%,transparent 13%),
+    radial-gradient(circle at 30% 65%,transparent 0 6%,rgba(0,0,0,.12) 7% 10%,transparent 11%);
+}
+
+.mars-ring{
+    position:absolute;
+    inset:-20px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:50%;
+    transform:rotate(-20deg);
+}
+
+/* CARDS */
+
+.grid{
+    display:grid;
+    grid-template-columns:1.25fr .75fr;
+    gap:20px;
+}
+
+.card{
+    background:rgba(18,20,28,.82);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:22px;
+    padding:22px;
+    backdrop-filter:blur(18px);
+    box-shadow:0 20px 70px rgba(0,0,0,.25);
+}
+
+.card h2{
+    font-size:21px;
+    margin-bottom:7px;
+}
+
+.description{
+    color:#8f95a2;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+/* MAP */
+
+.map{
+    height:500px;
+    border-radius:18px;
+    overflow:hidden;
+    position:relative;
+
+    background:
+    radial-gradient(circle at 45% 42%,
+    #c24b29 0%,
+    #8e301e 25%,
+    #5b2118 55%,
+    #1d0c0a 78%,
+    #080808 100%);
+}
+
+.map:before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background-image:
+    radial-gradient(circle,
+    rgba(255,220,190,.08) 1px,
+    transparent 1px);
+
+    background-size:20px 20px;
+}
+
+.map-title{
+    position:absolute;
+    top:15px;
+    left:15px;
+    z-index:3;
+
+    background:rgba(0,0,0,.5);
+    padding:9px 12px;
+    border-radius:10px;
+    font-size:11px;
+    color:#ddd;
+}
+
+.location{
+    position:absolute;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+
+    background:#ff6338;
+    border:3px solid white;
+
+    box-shadow:
+    0 0 0 5px rgba(255,99,56,.2),
+    0 0 20px rgba(255,99,56,.7);
+
+    transform:translate(-50%,-50%);
+    cursor:pointer;
+    z-index:5;
+}
+
+.location:hover{
+    transform:translate(-50%,-50%) scale(1.35);
+}
+
+.location.active{
+    background:white;
+    border-color:#ff6338;
+    transform:translate(-50%,-50%) scale(1.35);
+}
+
+.location-name{
+    position:absolute;
+    left:18px;
+    top:-8px;
+
+    white-space:nowrap;
+
+    background:rgba(0,0,0,.65);
+    padding:5px 8px;
+    border-radius:6px;
+
+    font-size:11px;
+}
+
+/* SCORE */
+
+.score{
+    font-size:70px;
+    font-weight:900;
+    color:#ff6538;
+    line-height:1;
+    margin:12px 0;
+}
+
+.score small{
+    font-size:15px;
+    color:#888;
+    font-weight:normal;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:20px;
+}
+
+.stat{
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.025);
+    padding:14px;
+    border-radius:14px;
+}
+
+.stat small{
+    color:#858b97;
+}
+
+.stat strong{
+    display:block;
+    margin-top:6px;
+    font-size:21px;
+}
+
+/* BARS */
+
+.metric{
+    margin:17px 0;
+}
+
+.metric-head{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+}
+
+.metric-head span:last-child{
+    font-weight:bold;
+}
+
+.bar{
+    height:8px;
+    background:#252833;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:8px;
+}
+
+.fill{
+    height:100%;
+    background:#ff6538;
+    border-radius:20px;
+    transition:width .7s;
+}
+
+/* GAP */
+
+.gaps{
+    display:grid;
+    gap:9px;
+}
+
+.gap{
+    padding:13px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:13px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.gap strong{
+    font-size:12px;
+}
+
+.status{
+    padding:5px 9px;
+    border-radius:30px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+.high{
+    color:#ff5360;
+    background:rgba(255,83,96,.1);
+}
+
+.medium{
+    color:#ffc857;
+    background:rgba(255,200,87,.1);
+}
+
+.low{
+    color:#35d07f;
+    background:rgba(53,208,127,.1);
+}
+
+/* BUTTON */
+
+button{
+    border:none;
+    cursor:pointer;
+}
+
+.main-button{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+
+    border-radius:13px;
+
+    background:#ff6538;
+    color:white;
+
+    font-size:14px;
+    font-weight:bold;
+
+    transition:.2s;
+}
+
+.main-button:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.1);
+}
+
+/* CONTROLS */
+
+.controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.control label{
+    color:#8f95a2;
+    font-size:12px;
+}
+
+.control input,
+.control select{
+    width:100%;
+    margin-top:6px;
+
+    padding:11px;
+
+    background:#10121a;
+    color:white;
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:11px;
+
+    outline:none;
+}
+
+.control input:focus,
+.control select:focus{
+    border-color:#ff6538;
+}
+
+/* TIMELINE */
+
+.timeline{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:7px;
+    margin:18px 0;
+}
+
+.year{
+    text-align:center;
+    padding:10px 5px;
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;
+
+    color:#777;
+    font-size:10px;
+}
+
+.year strong{
+    display:block;
+    font-size:14px;
+    color:inherit;
+}
+
+.year.active{
+    color:white;
+    border-color:#ff6538;
+    background:rgba(255,101,56,.1);
+}
+
+/* SIMULATION */
+
+.simulation-card{
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:15px;
+    padding:15px;
+    margin-top:10px;
+}
+
+.simulation-card h3{
+    margin-bottom:8px;
+}
+
+.simulation-card p{
+    color:#aeb2bd;
+    font-size:12px;
+    line-height:1.6;
+    margin-top:5px;
+}
+
+/* RECOMMENDATION */
+
+.recommendation{
+    margin-top:18px;
+    padding:17px;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+    135deg,
+    rgba(255,101,56,.13),
+    rgba(255,255,255,.02)
+    );
+
+    border:1px solid rgba(255,101,56,.25);
+}
+
+.recommendation h3{
+    font-size:21px;
+    margin-bottom:10px;
+}
+
+.recommendation li{
+    color:#b8bdc7;
+    font-size:13px;
+    margin:7px 0;
+}
+
+/* TABLE */
+
+.compare{
+    margin-top:20px;
+}
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:12px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    text-align:left;
+    font-size:12px;
+}
+
+th{
+    color:#858b97;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:35px;
+    color:#666d78;
+    font-size:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .hero{
+        grid-template-columns:1fr;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .mars{
+        width:250px;
+        height:250px;
+    }
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:15px 4%;
+    }
+
+    .header-badge{
+        display:none;
+    }
+
+    .container{
+        width:92%;
+        padding-top:30px;
+    }
+
+    h1{
+        font-size:44px;
+        letter-spacing:-2px;
+    }
+
+    .map{
+        height:370px;
+    }
+
+    .card{
+        padding:16px;
+        border-radius:17px;
+    }
+
+    .controls{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .score{
+        font-size:58px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+MARS <span>YAŞAYIŞ AI</span>
+</div>
+
+<div class="header-badge">
+NASA SPACE APPS • PROTOTİP
+</div>
+
+</header>
+
+
+<div class="container">
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div>
+
+<div class="hero-small">
+MARS GƏLƏCƏYİNİ SİMULYASİYA ET
+</div>
+
+<h1>
+Ərazini seç.<br>
+<span>Gələcəyini gör.</span>
+</h1>
+
+<p>
+Marsda insan yaşayışı üçün uyğun ərazi seçərkən
+təkcə bugünkü vəziyyətə baxmaq kifayət deyil.
+Bu sistem ərazinin resurslarını analiz edir,
+çatışmayan ehtiyacları müəyyənləşdirir və
+20 illik mümkün yaşayış ssenarisini simulyasiya edir.
+</p>
+
+</div>
+
+
+<div class="mars">
+
+<div class="mars-ring"></div>
+
+</div>
+
+</section>
+
+
+
+<div class="grid">
+
+<!-- SOL TƏRƏF -->
+
+<section>
+
+<div class="card">
+
+<h2>🪐 Mars xəritəsi</h2>
+
+<div class="description">
+Xəritədə istənilən namizəd əraziyə kliklə.
+</div>
+
+
+<div class="map" id="map">
+
+<div class="map-title">
+MARS • ƏRAZİ SEÇİMİ
+</div>
+
+</div>
+
+
+<div style="
+margin-top:12px;
+font-size:11px;
+color:#777;
+">
+● Namizəd ərazi &nbsp; • &nbsp;
+Nöqtəyə klikləməklə analiz başlayır
+</div>
+
+</div>
+
+
+<!-- MÜQAYİSƏ -->
+
+<div class="card compare">
+
+<h2>Ərazilərin müqayisəsi</h2>
+
+<div class="description">
+Əraziləri ümumi yaşayış uyğunluğu göstəricisinə görə müqayisə et.
+</div>
+
+<div class="table-wrapper">
+
+<table id="comparisonTable">
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- SAĞ TƏRƏF -->
+
+<aside>
+
+<div class="card">
+
+<h2 id="selectedName">
+Ərazi seçilməyib
+</h2>
+
+<div class="description" id="coordinates">
+Xəritədən ərazi seç
+</div>
+
+
+<div class="score" id="score">
+—
+<small>/100</small>
+</div>
+
+<div class="description" id="scoreDescription">
+Ərazi seçdikdən sonra nəticə burada görünəcək.
+</div>
+
+
+<div class="stats" id="stats">
+</div>
+
+
+<h3 style="margin-top:22px;">
+Ərazi göstəriciləri
+</h3>
+
+<div id="metrics">
+</div>
+
+
+<h3 style="margin-top:22px;">
+Bu ərazidə nə çatışmır?
+</h3>
+
+<div class="gaps" id="gaps">
+</div>
+
+
+<div class="recommendation" id="recommendation">
+
+<h3 id="recommendationTitle">
+—
+</h3>
+
+<ul id="recommendationList">
+</ul>
+
+</div>
+
+</div>
+
+
+
+<!-- SIMULYASİYA -->
+
+<div class="card" style="margin-top:20px;">
+
+<h2>
+🔮 20 illik simulyasiya
+</h2>
+
+<div class="description">
+Əhali, habitat ölçüsü və enerji strategiyasını dəyişərək
+mümkün gələcək ssenarini hesabla.
+</div>
+
+
+<div class="controls">
+
+<div class="control">
+
+<label>
+Astronavt sayı
+</label>
+
+<input
+id="population"
+type="number"
+min="2"
+max="200"
+value="10">
+
+</div>
+
+
+<div class="control">
+
+<label>
+Habitat sahəsi (m²)
+</label>
+
+<input
+id="habitat"
+type="number"
+min="100"
+max="10000"
+value="500">
+
+</div>
+
+
+<div class="control">
+
+<label>
+Enerji sistemi
+</label>
+
+<select id="energy">
+
+<option value="solar">
+Günəş enerjisi
+</option>
+
+<option value="hybrid">
+Günəş + Nüvə
+</option>
+
+<option value="nuclear">
+Nüvə enerjisi
+</option>
+
+</select>
+
+</div>
+
+
+<div class="control">
+
+<label>
+Su strategiyası
+</label>
+
+<select id="water">
+
+<option value="ice">
+Buzdan su çıxarılması
+</option>
+
+<option value="recycle">
+Təkrar emal + buz
+</option>
+
+<option value="storage">
+Hazır su ehtiyatı
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<button
+class="main-button"
+onclick="simulate()">
+
+20 İLLİK SİMULYASİYANI BAŞLAT
+
+</button>
+
+
+<div
+class="timeline"
+id="timeline">
+</div>
+
+
+<div id="simulation">
+</div>
+
+</div>
+
+</aside>
+
+</div>
+
+</div>
+
+
+<footer>
+
+MARS YAŞAYIŞ AI • NASA SPACE APPS CHALLENGE
+<br><br>
+Layihə prototipi — Ümid Sarıyev
+
+</footer>
+
+
+
+<script>
+
+/* =====================================
+   MARS ƏRAZİ MƏLUMATLARI
+===================================== */
+
+const locations = {
+
+"Arcadia Planitia":{
+    lat:40.0,
+    lon:200.0,
+    temperature:-55,
+    water:82,
+    radiation:64,
+    terrain:84,
+    solar:79,
+    dust:62,
+    ice:88,
+    elevation:-3700
+},
+
+"Utopia Planitia":{
+    lat:46.7,
+    lon:118.0,
+    temperature:-58,
+    water:91,
+    radiation:61,
+    terrain:76,
+    solar:74,
+    dust:58,
+    ice:94,
+    elevation:-4500
+},
+
+"Jezero Krateri":{
+    lat:18.4,
+    lon:77.6,
+    temperature:-52,
+    water:73,
+    radiation:68,
+    terrain:86,
+    solar:82,
+    dust:57,
+    ice:67,
+    elevation:-2500
+},
+
+"Valles Marineris":{
+    lat:-14.0,
+    lon:305.0,
+    temperature:-48,
+    water:58,
+    radiation:71,
+    terrain:63,
+    solar:84,
+    dust:69,
+    ice:48,
+    elevation:-4000
+},
+
+"Amazonis Planitia":{
+    lat:24.0,
+    lon:196.0,
+    temperature:-54,
+    water:67,
+    radiation:66,
+    terrain:89,
+    solar:86,
+    dust:73,
+    ice:59,
+    elevation:-2500
+},
+
+"Deuteronilus Mensae":{
+    lat:47.0,
+    lon:24.0,
+    temperature:-57,
+    water:86,
+    radiation:63,
+    terrain:70,
+    solar:71,
+    dust:61,
+    ice:90,
+    elevation:-1000
+}
+
+};
+
+
+/* =====================================
+   ÜMUMİ SKOR
+===================================== */
+
+function calculateScore(data){
+
+    return Math.round(
+
+        data.water * .22 +
+
+        data.radiation * .12 +
+
+        data.terrain * .16 +
+
+        data.solar * .15 +
+
+        data.ice * .18 +
+
+        (100-data.dust) * .09 +
+
+        data.terrain * .08
+
+    );
+
+}
+
+
+/* =====================================
+   XƏRİTƏ NÖQTƏLƏRİ
+===================================== */
+
+const map = document.getElementById("map");
+
+Object.entries(locations).forEach(([name,data])=>{
+
+    const point = document.createElement("div");
+
+    point.className = "location";
+
+    point.title = name;
+
+    /*
+    Mars koordinatlarını
+    xəritədə təxmini mövqeyə çeviririk
+    */
+
+    const x = ((data.lon % 360) / 360) * 100;
+
+    const y = ((90-data.lat)/180) * 100;
+
+    point.style.left = x + "%";
+
+    point.style.top = y + "%";
+
+
+    point.innerHTML =
+    `<div class="location-name">${name}</div>`;
+
+
+    point.onclick = ()=>{
+
+        selectLocation(name);
+
+    };
+
+
+    map.appendChild(point);
+
+});
+
+
+/* =====================================
+   ƏRAZİ SEÇİMİ
+===================================== */
+
+let selectedLocation = null;
+
+
+function selectLocation(name){
+
+    selectedLocation = name;
+
+    const data = locations[name];
+
+
+    document
+    .querySelectorAll(".location")
+    .forEach(point=>{
+
+        point.classList.remove("active");
+
+    });
+
+
+    const active =
+    [...document.querySelectorAll(".location")]
+    .find(point=>point.title===name);
+
+
+    if(active){
+        active.classList.add("active");
+    }
+
+
+    document.getElementById("selectedName")
+    .textContent = name;
+
+
+    document.getElementById("coordinates")
+    .textContent =
+    `${data.lat.toFixed(1)}° ${data.lat>=0?"Şm":"C"} • ${data.lon.toFixed(1)}° E`;
+
+
+    const score = calculateScore(data);
+
+
+    document.getElementById("score")
+    .innerHTML =
+    `${score}<small>/100</small>`;
+
+
+    document.getElementById("scoreDescription")
+    .textContent =
+    score >= 80
+    ? "Yüksək potensiallı yaşayış ərazisi."
+    : score >= 65
+    ? "Potensial var, lakin əlavə infrastruktur lazımdır."
+    : "Yüksək riskli ərazi. Böyük mühəndislik həlləri tələb olunur.";
+
+
+    /* STATS */
+
+    document.getElementById("stats").innerHTML = `
+
+        <div class="stat">
+            <small>Orta temperatur</small>
+            <strong>${data.temperature}°C</strong>
+        </div>
+
+        <div class="stat">
+            <small>Hündürlük</small>
+            <strong>${data.elevation} m</strong>
+        </div>
+
+        <div class="stat">
+            <small>Su potensialı</small>
+            <strong>${data.water}%</strong>
+        </div>
+
+        <div class="stat">
+            <small>Radiasiya təhlükəsizliyi</small>
+            <strong>${data.radiation}%</strong>
+        </div>
+
+    `;
+
+
+    /* METRICS */
+
+    const metrics = [
+
+        ["Su əlçatanlığı",data.water],
+
+        ["Radiasiya təhlükəsizliyi",data.radiation],
+
+        ["Relyef uyğunluğu",data.terrain],
+
+        ["Günəş enerjisi",data.solar],
+
+        ["Toz fırtınasına davamlılıq",100-data.dust],
+
+        ["Buz potensialı",data.ice]
+
+    ];
+
+
+    document.getElementById("metrics").innerHTML =
+
+    metrics.map(metric=>`
+
+        <div class="metric">
+
+            <div class="metric-head">
+
+                <span>${metric[0]}</span>
+
+                <span>${metric[1]}%</span>
+
+            </div>
+
+            <div class="bar">
+
+                <div
+                class="fill"
+                style="width:${metric[1]}%">
+                </div>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+
+    /* ÇATIŞMAZLIQLAR */
+
+    const gaps = [
+
+        [
+            "Su infrastrukturu",
+            100-data.water
+        ],
+
+        [
+            "Radiasiyadan qorunma",
+            100-data.radiation
+        ],
+
+        [
+            "Enerji ehtiyatı",
+            100-data.solar
+        ],
+
+        [
+            "Toz fırtınasına qarşı qoruma",
+            data.dust
+        ],
+
+        [
+            "Relyef mühəndisliyi",
+            100-data.terrain
+        ]
+
+    ];
+
+
+    gaps.sort((a,b)=>b[1]-a[1]);
+
+
+    document.getElementById("gaps").innerHTML =
+
+    gaps.slice(0,4).map(gap=>{
+
+        let className;
+        let text;
+
+        if(gap[1]>60){
+
+            className="high";
+            text="YÜKSƏK";
+
+        }
+        else if(gap[1]>35){
+
+            className="medium";
+            text="ORTA";
+
+        }
+        else{
+
+            className="low";
+            text="AŞAĞI";
+
+        }
+
+
+        return `
+
+        <div class="gap">
+
+            <strong>${gap[0]}</strong>
+
+            <span class="status ${className}">
+                ${text} • ${Math.round(gap[1])}%
+            </span>
+
+        </div>
+
+        `;
+
+    }).join("");
+
+
+    /* TÖVSİYƏ */
+
+    const recommendationTitle =
+    document.getElementById("recommendationTitle");
+
+
+    recommendationTitle.textContent =
+    score >= 80
+    ? "✓ ƏRAZİ TÖVSİYƏ OLUNUR"
+    : "⚠ ŞƏRTLİ ƏRAZİ";
+
+
+    document.getElementById("recommendationList")
+    .innerHTML = `
+
+        <li>
+        ${data.water>=80
+        ? "Su və buz ehtiyatı əsas üstünlüklərdəndir."
+        : "Su əldə etmək üçün əlavə infrastruktur lazımdır."}
+        </li>
+
+        <li>
+        ${data.radiation<70
+        ? "Gücləndirilmiş radiasiya qoruması lazımdır."
+        : "Radiasiya göstəricisi nisbətən əlverişlidir."}
+        </li>
+
+        <li>
+        ${data.solar<78
+        ? "Enerji ehtiyat sisteminin qurulması tövsiyə olunur."
+        : "Günəş enerjisi üçün yaxşı potensial mövcuddur."}
+        </li>
+
+    `;
+
+
+    renderComparison();
+
+    simulate();
+
+}
+
+
+/* =====================================
+   MÜQAYİSƏ CƏDVƏLİ
+===================================== */
+
+function renderComparison(){
+
+    const table =
+    document.getElementById("comparisonTable");
+
+
+    const sorted =
+    Object.entries(locations)
+    .sort((a,b)=>
+    calculateScore(b[1])-calculateScore(a[1]));
+
+
+    table.innerHTML = `
+
+    <thead>
+
+        <tr>
+
+            <th>Ərazi</th>
+
+            <th>Ümumi skor</th>
+
+            <th>Su</th>
+
+            <th>Enerji</th>
+
+            <th>Relyef</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        ${sorted.map(([name,data])=>`
+
+            <tr>
+
+                <td>
+                ${selectedLocation===name?"★ ":""}
+                ${name}
+                </td>
+
+                <td>
+                <strong>
+                ${calculateScore(data)}
+                </strong>
+                </td>
+
+                <td>${data.water}%</td>
+
+                <td>${data.solar}%</td>
+
+                <td>${data.terrain}%</td>
+
+            </tr>
+
+        `).join("")}
+
+    </tbody>
+
+    `;
+
+}
+
+
+/* =====================================
+   20 İLLİK SİMULYASİYA
+===================================== */
+
+function simulate(){
+
+    if(!selectedLocation){
+
+        return;
+
+    }
+
+
+    const data =
+    locations[selectedLocation];
+
+
+    const population =
+    Number(document.getElementById("population").value);
+
+
+    const habitat =
+    Number(document.getElementById("habitat").value);
+
+
+    const energy =
+    document.getElementById("energy").value;
+
+
+    const water =
+    document.getElementById("water").value;
+
+
+    const years =
+    [0,5,10,15,20];
+
+
+    document.getElementById("timeline").innerHTML =
+
+    years.map((year,index)=>`
+
+        <div class="year ${index===4?"active":""}">
+
+            <strong>
+            ${2026+year}
+            </strong>
+
+            ${year===0?"İNDİ":"+"+year+" İL"}
+
+        </div>
+
+    `).join("");
+
+
+    let html="";
+
+
+    years.slice(1).forEach(year=>{
+
+        /*
+        Resurs tələbinin artması
+        */
+
+        const demand =
+
+        Math.min(
+            100,
+            (population/10)*18 +
+            (habitat/500)*8 +
+            year*.8
+        );
+
+
+        /* SU */
+
+        let waterFactor;
+
+        if(water==="recycle"){
+
+            waterFactor=.55;
+
+        }
+        else if(water==="ice"){
+
+            waterFactor=.38;
+
+        }
+        else{
+
+            waterFactor=.75;
+
+        }
+
+
+        const waterStress =
+
+        Math.min(
+            100,
+            100-data.water +
+            demand*waterFactor
+        );
+
+
+        /* ENERJİ */
+
+        let energyFactor;
+
+        if(energy==="hybrid"){
+
+            energyFactor=.32;
+
+        }
+        else if(energy==="nuclear"){
+
+            energyFactor=.18;
+
+        }
+        else{
+
+            energyFactor=.58;
+
+        }
+
+
+        const energyStress =
+
+        Math.min(
+            100,
+            100-data.solar +
+            demand*energyFactor
+        );
+
+
+        /* RADİASİYA */
+
+        const radiationStress =
+
+        Math.min(
+            100,
+            100-data.radiation +
+            year*.65
+        );
+
+
+        /* TOZ */
+
+        const dustStress =
+
+        Math.min(
+            100,
+            data.dust +
+            year*.5
+        );
+
+
+        /* ÜMUMİ RİSK */
+
+        const overall =
+
+        Math.min(
+            100,
+            waterStress*.35 +
+            energyStress*.25 +
+            radiationStress*.20 +
+            dustStress*.20
+        );
+
+
+        let status;
+        let statusClass;
+        let message;
+
+
+        if(overall>70){
+
+            status="KRİTİK";
+
+            statusClass="high";
+
+            message=
+            "Bir neçə sistem kritik səviyyəyə yaxınlaşır. Əlavə infrastruktur tələb olunur.";
+
+        }
+        else if(overall>45){
+
+            status="YÜKSƏK RİSK";
+
+            statusClass="medium";
+
+            message=
+            "Resurs tələbatı artır və mühəndislik həllərinə ehtiyac yaranır.";
+
+        }
+        else{
+
+            status="NİSBƏTƏN SABİT";
+
+            statusClass="low";
+
+            message=
+            "Yaşayış sistemləri bu ssenaridə nisbətən idarəolunan qalır.";
+
+        }
+
+
+        html += `
+
+        <div class="simulation-card">
+
+            <h3>
+            ${year} ildən sonra
+
+            <span
+            class="status ${statusClass}">
+            ${status}
+            </span>
+
+            </h3>
+
+
+            <p>
+
+            <strong>Su stresi:</strong>
+            ${Math.round(waterStress)}%
+
+            &nbsp;&nbsp;
+
+            <strong>Enerji stresi:</strong>
+            ${Math.round(energyStress)}%
+
+            </p>
+
+
+            <p>
+
+            <strong>Radiasiya narahatlığı:</strong>
+            ${Math.round(radiationStress)}%
+
+            &nbsp;&nbsp;
+
+            <strong>Toz riski:</strong>
+            ${Math.round(dustStress)}%
+
+            </p>
+
+
+            <p>
+            ${message}
+            </p>
+
+        </div>
+
+        `;
+
+    });
+
+
+    document.getElementById("simulation")
+    .innerHTML = html;
+
+}
+
+
+/* =====================================
+   İLK AÇILIŞ
+===================================== */
+
+renderComparison();
+
+selectLocation("Arcadia Planitia");
+
+</script>
+
+</body>
+</html>
